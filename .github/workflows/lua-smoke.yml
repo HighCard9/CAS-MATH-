@@ -1,0 +1,17 @@
+name: Lua smoke
+
+on:
+  push:
+    branches: [main, "cursor/**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Lua
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lua5.4
+      - name: Run smoke tests
+        run: lua5.4 tests/smoke.lua

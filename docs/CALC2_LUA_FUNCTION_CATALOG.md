@@ -145,3 +145,18 @@ Include only if your Calc 2 scope covers them; otherwise backlog.
 - Add `src/` Lua modules mirroring sections above (e.g. `series_tests.lua`, `power_series.lua`).  
 - Each function returns `{ result, steps, warnings }` for a single UI pattern.  
 - Track implementation status in GitHub **Issues** or a **Project** column per function name from the tables above.
+
+---
+
+## Implementation status (rolling)
+
+| Module | Path | Implemented |
+|--------|------|-------------|
+| Core | `src/calc2/core.lua` | `clear_steps`, `step`, `get_steps`, `tolerance`, `near`, `assert_positive_int`, `cas_eval`, `format_expr` |
+| Sequences | `src/calc2/sequences.lua` | `sequence_term`, `limit_sequence` |
+| Series basics | `src/calc2/series_basics.lua` | `partial_sum`, `infinite_sum_if_converges`, `geometric_series` |
+| Series tests | `src/calc2/series_tests.lua` | `geometric_test_ratio`, `p_series_classify`, `nth_term_test`, `ratio_test`, `root_test` |
+
+**Device:** set `package.path` so `require("calc2.core")` resolves (e.g. prepend `src/?.lua`). CAS calls use `math.evalStr` unless you pass `ctx.evalStr` (used by desktop tests).
+
+**Desktop CI:** `lua5.4 tests/smoke.lua` (mock CAS; extend `tests/smoke.lua` as you add features).
